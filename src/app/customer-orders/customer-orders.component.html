@@ -7,6 +7,14 @@
     <mat-card-content>
         <ng-container *ngIf="data$ | async as data">
             <table mat-table [dataSource]="data">
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let customerOrder">
+                        <button mat-button color="primary" (click)="onClick(customerOrder.id)">
+                            View
+                        </button>
+                    </td>
+                </ng-container>
                 <ng-container matColumnDef="customerName">
                     <th mat-header-cell *matHeaderCellDef>Customer Name</th>
                     <td mat-cell *matCellDef="let customerOrder">{{customerOrder.customerName}}</td>

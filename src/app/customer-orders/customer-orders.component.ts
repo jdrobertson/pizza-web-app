@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 import { CustomerOrderService } from './shared/customer-order.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CustomerOrderSummaryComponent } from './customer-order-summary/customer-order-summary.component';
 
 @Component({
   selector: 'app-customer-orders',
@@ -9,7 +11,7 @@ import { CustomerOrderService } from './shared/customer-order.service';
 })
 export class CustomerOrdersComponent implements OnInit {
 
-  displayedColumns: string[] = ['customerName', 'customerAddress', 'pizzaQuantity', 'fulfilled'];
+  displayedColumns: string[] = ['actions', 'customerName', 'customerAddress', 'pizzaQuantity', 'fulfilled'];
 
   customerOrders$ = this.customerOrderService.getCustomerOrders();
 
@@ -25,9 +27,16 @@ export class CustomerOrdersComponent implements OnInit {
     ),
   );
 
-  constructor(private customerOrderService: CustomerOrderService) { }
+  constructor(private customerOrderService: CustomerOrderService,
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
+  }
+
+  onClick(customerOrderId: number) {
+    const dialogRef = this.dialog.open(
+      CustomerOrderSummaryComponent,
+    );
   }
 
 }
