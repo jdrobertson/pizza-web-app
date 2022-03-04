@@ -15,18 +15,6 @@ export class CustomerOrdersComponent implements OnInit {
 
   customerOrders$ = this.customerOrderService.getCustomerOrders();
 
-  data$ = this.customerOrders$.pipe(
-    map(customerOrders =>
-      customerOrders.map(customerOrder => ({
-          id: customerOrder.id,
-          customerName: customerOrder.customerName,
-          customerAddress: customerOrder.customerAddress,
-          pizzaQuantity: customerOrder.pizzas.length,
-          fulfilled: customerOrder.fulfilled ? 'Yes' : 'No',
-      }))
-    ),
-  );
-
   constructor(private customerOrderService: CustomerOrderService,
               private dialog: MatDialog) { }
 
