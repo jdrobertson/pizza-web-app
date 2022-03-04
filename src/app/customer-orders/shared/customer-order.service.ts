@@ -14,4 +14,8 @@ export class CustomerOrderService {
   public getCustomerOrders() {
     return this.httpClient.get<CustomerOrder[]>(this.apiUrl);
   }
+
+  public getCustomerOrderById(customerOrderId: number) {
+    return this.httpClient.get<CustomerOrder>(`${this.apiUrl}/${customerOrderId}`);
+  }
 }
