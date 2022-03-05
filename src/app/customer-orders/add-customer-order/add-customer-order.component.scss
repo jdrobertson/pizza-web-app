@@ -1,7 +1,5 @@
 .customer-details-form {
-    min-width: 150px;
-    max-width: 600px;
-    width: 100%;
+    width: 600px;
 
     .customer-details-form-item {
       width: 100%;
@@ -9,9 +7,7 @@
 }
 
 .pizza-selection-form {
-  min-width: 150px;
-  max-width: 600px;
-  width: 100%;
+  width: 600px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
