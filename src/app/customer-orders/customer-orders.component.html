@@ -1,9 +1,4 @@
 <mat-card>
-    <mat-card-actions>
-        <button mat-raised-button color="primary" type="button" routerLink="/customer-orders/add">
-            Add Order
-        </button>
-    </mat-card-actions>
     <mat-card-content>
         <ng-container *ngIf="customerOrders$ | async as customerOrders">
             <table mat-table [dataSource]="customerOrders">
