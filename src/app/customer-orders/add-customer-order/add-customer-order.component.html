@@ -1,3 +1,85 @@
-<p>
-  add-customer-order works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Customer Details</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="customerDetailsForm" class="customer-details-form">
+      <mat-form-field class="customer-details-form-item">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="customerName">
+      </mat-form-field>
+      <mat-form-field class="customer-details-form-item">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="customerAddress">
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Pizza Selection</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="pizzaSelectionForm" class="pizza-selection-form">
+      <ng-container *ngIf="pizzaToppings$ | async as pizzaToppings">
+        <mat-form-field class="pizza-selection-form-topping">
+            <mat-label>Topping</mat-label>
+            <mat-select formControlName="pizzaTopping">
+              <ng-container *ngFor="let pizzaTopping of pizzaToppings">
+               <mat-option [value]="pizzaTopping">{{pizzaTopping.name}}</mat-option>
+              </ng-container>
+            </mat-select>
+        </mat-form-field>
+      </ng-container>
+  
+      <ng-container *ngIf="pizzaBases$ | async as pizzaBases">
+        <mat-form-field class="pizza-selection-form-item">
+            <mat-label>Base</mat-label>
+            <mat-select formControlName="pizzaBase">
+              <ng-container *ngFor="let pizzaBase of pizzaBases">
+               <mat-option [value]="pizzaBase">{{pizzaBase.name}}</mat-option>
+              </ng-container>
+            </mat-select>
+        </mat-form-field>
+  
+        <ng-container *ngIf="filteredPizzaBaseSizes$ | async as pizzaBaseSizes">
+          <mat-form-field class="pizza-selection-form-item">
+              <mat-label>Size</mat-label>
+              <mat-select formControlName="pizzaBaseSize">
+                <ng-container *ngFor="let pizzaBaseSize of pizzaBaseSizes">
+                 <mat-option [value]="pizzaBaseSize">{{pizzaBaseSize.name}} ({{pizzaBaseSize.inches}}")</mat-option>
+                </ng-container>
+              </mat-select>
+          </mat-form-field>
+        </ng-container>
+      </ng-container>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button type="button" color="primary"
+            (click)="onAddPizza()" [disabled]="!pizzaSelectionForm.valid">
+      Add Pizza to Order
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Your order</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <app-pizza-list [dataSource]="orderPizzas"></app-pizza-list>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button type="button" color="accent" (click)="onSubmitOrder()"
+            [disabled]="!orderPizzas.length || !customerDetailsForm.valid">
+      Submit Order
+    </button>
+  </mat-card-actions>
+</mat-card>

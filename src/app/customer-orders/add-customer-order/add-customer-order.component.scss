@@ -1,0 +1,26 @@
+.customer-details-form {
+    min-width: 150px;
+    max-width: 600px;
+    width: 100%;
+
+    .customer-details-form-item {
+      width: 100%;
+    }
+}
+
+.pizza-selection-form {
+  min-width: 150px;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+
+  .pizza-selection-form-topping {
+    width: 100%;
+  }
+
+  .pizza-selection-form-item {
+    width: 49%;
+  }
+}
