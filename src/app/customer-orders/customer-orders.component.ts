@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CustomerOrderService } from './shared/services/customer-order.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewCustomerOrderComponent } from './view-customer-order/view-customer-order.component';
+import { BehaviorSubject, filter, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-customer-orders',
@@ -12,7 +13,11 @@ export class CustomerOrdersComponent {
 
   displayedColumns: string[] = ['actions', 'customerName', 'customerAddress', 'pizzaQuantity', 'fulfilled'];
 
-  customerOrders$ = this.customerOrderService.getCustomerOrders();
+  reloadCustomerOrders$ = new BehaviorSubject(true);
+
+  customerOrders$ = this.reloadCustomerOrders$.pipe(
+    switchMap(() => this.customerOrderService.getCustomerOrders()),
+  );
 
   constructor(private customerOrderService: CustomerOrderService,
               private dialog: MatDialog) { }
@@ -27,6 +32,17 @@ export class CustomerOrdersComponent {
         width: '75%',
       }
     );
+
+    dialogRef.afterClosed().subscribe({
+      next: (reloadRequested => {
+        if (reloadRequested) {
+          this.reloadCustomerOrders$.next(true);
+        }
+      }),
+    });
   }
 
+  onRefresh() {
+    this.reloadCustomerOrders$.next(true);
+  }
 }

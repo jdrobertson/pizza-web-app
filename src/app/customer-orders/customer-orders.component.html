@@ -1,4 +1,7 @@
 <mat-card>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" type="button" (click)="onRefresh()">Refresh Orders</button>
+    </mat-card-actions>
     <mat-card-content>
         <ng-container *ngIf="customerOrders$ | async as customerOrders">
             <table mat-table [dataSource]="customerOrders">
