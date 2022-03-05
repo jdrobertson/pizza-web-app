@@ -7,12 +7,12 @@ import { PizzaTopping } from '../models/pizza-topping.model';
 })
 export class PizzaToppingService {
 
-  apiUrl = 'http://localhost:8080/customerorders';
+  apiUrl = 'http://localhost:8080/pizzatoppings';
 
   constructor(private httpClient: HttpClient) { }
 
   public getPizzaToppings() {
-    this.httpClient.get<PizzaTopping[]>(this.apiUrl);
+    return this.httpClient.get<PizzaTopping[]>(this.apiUrl);
   }
 
 }

@@ -12,7 +12,7 @@ export class PizzaBaseService {
   constructor(private httpClient: HttpClient) { }
 
   public getPizzaBases() {
-    this.httpClient.get<PizzaBase[]>(this.apiUrl);
+    return this.httpClient.get<PizzaBase[]>(this.apiUrl);
   }
 
 }
