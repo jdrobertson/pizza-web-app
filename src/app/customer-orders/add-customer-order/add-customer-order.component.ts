@@ -31,7 +31,7 @@ export class AddCustomerOrderComponent {
 
   filteredPizzaBaseSizes$: Observable<PizzaBaseSize[]> = this.pizzaSelectionForm.controls['pizzaBase'].valueChanges
   .pipe(
-    map(pizzaBase => pizzaBase.pizzaBaseSizes),
+    map(pizzaBase => pizzaBase?.pizzaBaseSizes),
     tap(() => this.pizzaSelectionForm.controls['pizzaBaseSize'].reset())
   );
 
