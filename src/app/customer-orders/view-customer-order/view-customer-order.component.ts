@@ -26,4 +26,8 @@ export class ViewCustomerOrderComponent {
     });
   }
 
+  onClose() {
+    this.dialogRef.close(false);
+  }
+
 }

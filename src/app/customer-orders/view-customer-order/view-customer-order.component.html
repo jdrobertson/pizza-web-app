@@ -1,23 +1,21 @@
 <mat-card *ngIf="customerOrder$ | async as customerOrder">
   <mat-card-header>
     <mat-card-title>
-      Order for {{ customerOrder.customerName }}
+      Order for {{ customerOrder.customerName }} <span *ngIf="customerOrder.fulfilled">(DELIVERED)</span>
     </mat-card-title>
     <mat-card-subtitle>
       {{ customerOrder.customerAddress }}
     </mat-card-subtitle>
   </mat-card-header>
 
-  <mat-card-content>
+  <mat-card-content class="pizza-list">
   <app-pizza-list [dataSource]="customerOrder.pizzas"></app-pizza-list>
   </mat-card-content>
 
   <mat-card-actions align="end">
-    <ng-container *ngIf="!customerOrder.fulfilled; else fulfilled">
-      <button mat-raised-button color="accent" type="button" (click)="onMarkAsFulfilled()">Mark as Fulfilled</button>
+    <ng-container *ngIf="!customerOrder.fulfilled">
+      <button mat-raised-button color="accent" type="button" (click)="onMarkAsFulfilled()">Mark as Delivered</button>
     </ng-container>
-    <ng-template #fulfilled>
-      Order Fulfilled
-    </ng-template>
+    <button mat-raised-button color="primary" type="button" (click)="onClose()">Close</button>
   </mat-card-actions>
 </mat-card>
