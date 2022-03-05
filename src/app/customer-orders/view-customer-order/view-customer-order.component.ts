@@ -9,8 +9,6 @@ import { CustomerOrderService } from '../shared/services/customer-order.service'
 })
 export class ViewCustomerOrderComponent {
 
-  displayedColumns: string[] = ['pizzaTopping', 'pizzaBase', 'pizzaBaseSize'];
-
   customerOrder$ = this.customerOrderService.getCustomerOrderById(this.data.customerOrderId);
 
   constructor(private customerOrderService: CustomerOrderService,

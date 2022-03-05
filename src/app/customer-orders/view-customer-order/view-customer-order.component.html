@@ -7,25 +7,11 @@
       {{ customerOrder.customerAddress }}
     </mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
-    <table mat-table [dataSource]="customerOrder.pizzas">
-      <ng-container matColumnDef="pizzaTopping">
-          <th mat-header-cell *matHeaderCellDef>Topping</th>
-          <td mat-cell *matCellDef="let pizza">{{pizza.pizzaTopping.name}}</td>
-      </ng-container>
-      <ng-container matColumnDef="pizzaBase">
-          <th mat-header-cell *matHeaderCellDef>Base</th>
-          <td mat-cell *matCellDef="let pizza">{{pizza.pizzaBaseSize.pizzaBase.name}}</td>
-      </ng-container>
-      <ng-container matColumnDef="pizzaBaseSize">
-        <th mat-header-cell *matHeaderCellDef>Size</th>
-        <td mat-cell *matCellDef="let pizza">{{pizza.pizzaBaseSize.name}} ({{pizza.pizzaBaseSize.inches}}")</td>
-    </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row (click)="null" *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+  <mat-card-content>
+  <app-pizza-list [dataSource]="customerOrder.pizzas"></app-pizza-list>
   </mat-card-content>
+
   <mat-card-actions align="end">
     <ng-container *ngIf="!customerOrder.fulfilled; else fulfilled">
       <button mat-raised-button color="accent" type="button" (click)="onMarkAsFulfilled()">Mark as Fulfilled</button>

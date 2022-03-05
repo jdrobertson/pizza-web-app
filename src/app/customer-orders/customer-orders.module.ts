@@ -9,12 +9,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatGridListModule } from '@angular/material/grid-list'
 import { ViewCustomerOrderComponent } from './view-customer-order/view-customer-order.component';
 import { AddCustomerOrderComponent } from './add-customer-order/add-customer-order.component';
+import { PizzaListComponent } from './shared/components/pizza-list/pizza-list.component';
 
 @NgModule({
   declarations: [
     CustomerOrdersComponent,
     AddCustomerOrderComponent,
     ViewCustomerOrderComponent,
+    PizzaListComponent,
   ],
   imports: [
     CommonModule,
