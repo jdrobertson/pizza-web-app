@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, Observable, tap } from 'rxjs';
 import { PizzaBaseSize } from 'src/app/shared/models/pizza-base-size.model';
-import { PizzaBase } from 'src/app/shared/models/pizza-base.model';
-import { PizzaTopping } from 'src/app/shared/models/pizza-topping.model';
 import { PizzaBaseService } from 'src/app/shared/services/pizza-base.service';
 import { PizzaToppingService } from 'src/app/shared/services/pizza-topping.service';
 import { CustomerOrderService } from '../shared/services/customer-order.service';
@@ -27,19 +25,9 @@ export class AddCustomerOrderComponent {
     pizzaBaseSize: ['', Validators.required],
   });
 
-  toppings = new FormControl();
+  pizzaToppings$ = this.pizzaToppingService.getPizzaToppings();
 
-  pizzaToppings: PizzaTopping[] = [];
-  pizzaToppings$ = this.pizzaToppingService.getPizzaToppings()
-  .pipe(
-    tap(pizzaToppings => this.pizzaToppings = pizzaToppings),
-  );
-
-  pizzaBases: PizzaBase[] = [];
-  pizzaBases$ = this.pizzaBaseService.getPizzaBases()
-  .pipe(
-    tap(pizzaBases => this.pizzaBases = pizzaBases),
-  );
+  pizzaBases$ = this.pizzaBaseService.getPizzaBases();
 
   filteredPizzaBaseSizes$: Observable<PizzaBaseSize[]> = this.pizzaSelectionForm.controls['pizzaBase'].valueChanges
   .pipe(
@@ -56,13 +44,7 @@ export class AddCustomerOrderComponent {
               private snackBar: MatSnackBar) { }
 
   onAddPizza() {
-    const pizza = {
-      pizzaTopping: this.pizzaSelectionForm.controls['pizzaTopping'].value,
-      pizzaBase: this.pizzaSelectionForm.controls['pizzaBase'].value,
-      pizzaBaseSize: this.pizzaSelectionForm.controls['pizzaBaseSize'].value,
-    };
-
-    this.orderPizzas = [... this.orderPizzas, pizza];
+    this.orderPizzas = [... this.orderPizzas, this.pizzaSelectionForm.value];
   }
 
   onSubmitOrder() {
@@ -78,11 +60,6 @@ export class AddCustomerOrderComponent {
         this.snackBar.open(
           "Order submitted successfully!",
           "OK",
-          {
-            verticalPosition: 'top',
-            horizontalPosition: 'right',
-            duration: 5000,
-          }
         );
         this.pizzaSelectionForm.reset();
         this.orderPizzas = [];
@@ -90,10 +67,6 @@ export class AddCustomerOrderComponent {
       error: () => this.snackBar.open(
         "Uh oh! Sorry, something went wrong.",
         "OK",
-        {
-          verticalPosition: 'top',
-          horizontalPosition: 'right',
-        }
       ),
     });
   }
