@@ -6,6 +6,7 @@ import { CustomerOrdersComponent } from './customer-orders.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { MatGridListModule } from '@angular/material/grid-list'
 import { ViewCustomerOrderComponent } from './view-customer-order/view-customer-order.component';
 import { AddCustomerOrderComponent } from './add-customer-order/add-customer-order.component';
 
@@ -21,6 +22,7 @@ import { AddCustomerOrderComponent } from './add-customer-order/add-customer-ord
     MatButtonModule,
     MatCardModule,
     MatTableModule,
+    MatGridListModule,
   ]
 })
 export class CustomerOrdersModule { }

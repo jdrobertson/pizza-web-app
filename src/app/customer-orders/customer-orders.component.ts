@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs';
-import { CustomerOrderService } from './shared/customer-order.service';
+import { CustomerOrderService } from './shared/services/customer-order.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CustomerOrderSummaryComponent } from './customer-order-summary/customer-order-summary.component';
+import { ViewCustomerOrderComponent } from './view-customer-order/view-customer-order.component';
 
 @Component({
   selector: 'app-customer-orders',
   templateUrl: './customer-orders.component.html',
   styleUrls: ['./customer-orders.component.scss']
 })
-export class CustomerOrdersComponent implements OnInit {
+export class CustomerOrdersComponent {
 
   displayedColumns: string[] = ['actions', 'customerName', 'customerAddress', 'pizzaQuantity', 'fulfilled'];
 
@@ -18,12 +17,15 @@ export class CustomerOrdersComponent implements OnInit {
   constructor(private customerOrderService: CustomerOrderService,
               private dialog: MatDialog) { }
 
-  ngOnInit(): void {
-  }
-
   onClick(customerOrderId: number) {
     const dialogRef = this.dialog.open(
-      CustomerOrderSummaryComponent,
+      ViewCustomerOrderComponent,
+      {
+        data: {
+          customerOrderId,
+        },
+        width: '75%',
+      }
     );
   }
 
