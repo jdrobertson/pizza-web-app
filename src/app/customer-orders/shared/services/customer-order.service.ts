@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { CustomerOrder } from './customer-order.model';
+import { CustomerOrder, CustomerOrderUpdateDto } from '../models/customer-order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +17,9 @@ export class CustomerOrderService {
 
   public getCustomerOrderById(customerOrderId: number) {
     return this.httpClient.get<CustomerOrder>(`${this.apiUrl}/${customerOrderId}`);
+  }
+
+  public updateCustomerOrder(customerOrderId: number, customerOrderUpdateDto: CustomerOrderUpdateDto) {
+    return this.httpClient.patch<CustomerOrder>(`${this.apiUrl}/${customerOrderId}`, customerOrderUpdateDto);
   }
 }

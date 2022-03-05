@@ -7,3 +7,7 @@ export interface CustomerOrder {
     pizzas: Pizza[];
     fulfilled: boolean;
 }
+
+export interface CustomerOrderUpdateDto {
+    fulfilled: boolean;
+}
